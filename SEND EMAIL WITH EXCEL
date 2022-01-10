@@ -1,0 +1,24 @@
+Option Explicit
+
+Sub testEmail()
+
+Dim emailApplication As Object
+Dim emailItem As Object
+
+Set emailApplication = CreateObject("Outlook.Application")
+Set emailItem = emailApplication.CreateItem(0)
+
+
+emailItem.to = "email@test.com"
+emailItem.Subject = "test subject"
+emailItem.body = "Test Email Body."
+
+'display the email
+emailItem.display
+
+'.Send to send the email.
+
+Set emailItem = Nothing
+Set emailApplication = Nothing
+
+End Sub
