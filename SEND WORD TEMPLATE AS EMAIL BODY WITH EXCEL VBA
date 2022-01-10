@@ -1,0 +1,53 @@
+Option Explicit
+
+Sub testEmailwithWordTemplate()
+
+Dim emailApplication As Object
+Dim emailItem As Object
+Dim wordApplication As Object
+Dim doc As Object
+Dim editor
+
+On Error GoTo errHandler
+Set emailApplication = CreateObject("Outlook.Application")
+Set emailItem = emailApplication.CreateItem(0)
+
+Set wordApplication = CreateObject("Word.Application")
+Set doc = wordApplication.documents.Open(ActiveWorkbook.Path & "/template2.docx") 'template path
+
+doc.Content.Copy 'copies the content of the word document
+
+
+With emailItem
+    .to = "email@test.com"
+    .Subject = "test subject"
+    Set editor = .getinspector.wordeditor 'use to paste the copied content of word
+    editor.Content.PasteandFormat (16) 'Keep Source Formatting https://docs.microsoft.com/en-us/office/vba/api/Word.WdRecoveryType
+    
+End With
+
+wordApplication.Visible = True
+
+'display the email
+emailItem.display
+
+Set emailItem = Nothing
+Set emailApplication = Nothing
+
+Set wordApplication = Nothing
+Set doc = Nothing
+Set editor = Nothing
+
+
+Exit Sub
+
+errHandler:
+VBA.MsgBox "Error"
+Set emailItem = Nothing
+Set emailApplication = Nothing
+
+Set wordApplication = Nothing
+Set doc = Nothing
+Set editor = Nothing
+
+End Sub
