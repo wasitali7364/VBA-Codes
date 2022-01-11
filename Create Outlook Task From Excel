@@ -44,3 +44,14 @@ errHandler:
     Set taskItem = Nothing
     VBA.MsgBox "ERROR", vbCritical
 End Sub
+
+
+Excel sheet i used to create Task
+A       B           C
+Steps	Start Date	Body
+Step 1	12-01-2022	some note of step 1
+Step 2	13-01-2022	some note of step 2
+Step 3	14-01-2022	some note of step 3
+Step 4	15-01-2022	some note of step 4
+Step 5	16-01-2022	some note of step 5
+
