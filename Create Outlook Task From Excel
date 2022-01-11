@@ -1,0 +1,46 @@
+Option Explicit
+
+Sub createTask()
+
+    Dim emailApplication As Object
+    Dim taskItem As Object
+    Dim lastRow As Long, rowNumber As Long
+    
+    Set emailApplication = CreateObject("Outlook.Application")
+
+    On Error GoTo errHandler
+    
+    lastRow = Cells(Rows.Count, "A").End(xlUp).Row
+    
+    If 2 > lastRow Then Exit Sub
+        
+    For rowNumber = 2 To lastRow
+        
+        If Len(Cells(rowNumber, "A").Value) > 0 Then
+            
+            Set taskItem = emailApplication.CreateItem(3) 'https://docs.microsoft.com/en-us/office/vba/api/Outlook.OlItemType
+            
+            With taskItem
+                .Subject = Cells(rowNumber, "A").Value
+                .DueDate = Cells(rowNumber, "B").Value
+                .body = Cells(rowNumber, "C").Value
+                .Save 'very important to save task
+            End With
+            
+            Set taskItem = Nothing
+            
+        End If
+        
+    Next rowNumber
+    
+    Set emailApplication = Nothing
+    Set taskItem = Nothing
+    VBA.MsgBox "created task successfully.", vbInformation
+        
+    Exit Sub
+    
+errHandler:
+    Set emailApplication = Nothing
+    Set taskItem = Nothing
+    VBA.MsgBox "ERROR", vbCritical
+End Sub
