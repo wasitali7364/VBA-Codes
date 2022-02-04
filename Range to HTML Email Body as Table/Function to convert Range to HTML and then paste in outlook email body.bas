@@ -4,16 +4,15 @@ Option Explicit
 
 Sub testEmail()
 
-Dim rng As Range
+Dim rng As Range	'use this range to send to function which converts range to html
 Dim emailApplication As Object
 Dim emailItem As Object
 Dim sendTo As String
 Dim workFile As String
 Dim newFile As String
-Dim delFile As String
-
+Dim delFile As String ' named this variable as delFile because this will store a attachment file which we will be deleting  in the end
+	
 workFile = ActiveWorkbook.Name
-
 
 sendTo = VBA.InputBox("Enter a valid Email Address", "Receiver's Email ID")
 On Error GoTo errHandle
@@ -51,7 +50,7 @@ If sendTo <> "" Then
     
     Set emailItem = Nothing
     Set emailApplication = Nothing
-    Kill (delFile)
+	Kill (delFile)	'	we	will delete the file we have created to add in attachment
     Exit Sub
 
 End If
@@ -63,7 +62,8 @@ Application.CutCopyMode = False
 MsgBox "There seems to be an error" & vbCrLf & Err.Description
 End Sub
 
-
+' This function is used to convert range to html and paste it in outlook email body as html body
+' No need to edit anything. Just copy and paste this function in your vba editor and use it
 Function RangetoHTML(rng As Range)
 ' Changed by Ron de Bruin 28-Oct-2006
 ' Working in Office 2000-2021
