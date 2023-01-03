@@ -15,3 +15,15 @@ Sub CheckAndDeleteWorkbook()
     Kill "C:\MyFolder\MyWorkbook.xlsx"
   End If
 End Sub
+
+'How to use this code in Production?
+'    'check if path exists
+'    If Len(Dir("C:\Users\" & Environ("username") & "\Downloads\Missing_ORGID.xlsx")) = 0 Then
+'        'path does not exist so create new file
+'        wb.SaveAs "C:\Users\" & Environ("username") & "\Downloads\Missing_ORGID.xlsx"
+'    Else
+'        'path does not exist so check open status of file then close it and delete it
+'        Call CheckAndDeleteWorkbook
+'        'create new file
+'        wb.SaveAs "C:\Users\" & Environ("username") & "\Downloads\Missing_ORGID.xlsx"
+'    End If
